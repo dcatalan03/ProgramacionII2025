@@ -1,0 +1,44 @@
+# Kotlin build files
+/build/
+/out/
+/bin/
+
+# IntelliJ IDEA
+*.iml
+.idea/
+*.ipr
+*.iws
+
+# Gradle
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+
+# Maven
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+
+# Logs
+*.log
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Sensitive files
+*.keystore
+*.jks
+local.properties
+.env
+*.env
+
+# Test reports
+test-results/
+test-output/
+
+# Dependency directories
+node_modules/
