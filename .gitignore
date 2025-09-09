@@ -42,3 +42,59 @@ test-output/
 
 # Dependency directories
 node_modules/
+
+# --- Android specific ---
+# Android Studio
+*.apk
+*.ap_
+*.dex
+*.class
+*.so
+*.jar
+*.war
+*.ear
+*.hprof
+
+# Android build folders
+.cxx/
+captures/
+.externalNativeBuild/
+.idea/caches/
+.idea/libraries/
+.idea/modules.xml
+.idea/workspace.xml
+.idea/navEditor.xml
+.idea/assetWizardSettings.xml
+.idea/.name
+*.iml
+.gradle/
+local.properties
+*.log
+*.xml
+*.json
+
+# Android generated files
+gen/
+build/
+output.json
+
+# Google Services & Firebase
+google-services.json
+app/google-services.json
+firebase.json
+crashlytics-build.properties
+
+# Fastlane
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots
+fastlane/test_output
+
+# Proguard
+proguard/
+proguard-rules.pro
+
+# Misc
+*.orig
+*.rej
+*.sublime-workspace
