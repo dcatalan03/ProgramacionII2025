@@ -2,10 +2,8 @@ package com.example.clase7
 
 import android.app.Activity
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
@@ -31,15 +29,15 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.material3.CheckboxDefaults.colors
+import androidx.navigation.NavController
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
 
-@Preview
 @Composable
-fun LoginScreen(innerPadding: PaddingValues = PaddingValues()){
+fun LoginScreen(navController: NavController){
 
     val auth = Firebase.auth
 
@@ -53,12 +51,11 @@ fun LoginScreen(innerPadding: PaddingValues = PaddingValues()){
     Column(
         modifier = Modifier
             .padding(4.dp)
-            .fillMaxSize()
-            .background(color=Color.White),
+            .fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement =Arrangement.Center
     ){
-        //TODO: Buscar como agregar imagenes como recursos
+
         Image(
             imageVector = Icons.Filled.Person,
             contentDescription = "User icon",
@@ -68,7 +65,7 @@ fun LoginScreen(innerPadding: PaddingValues = PaddingValues()){
             text = stringResource(R.string.login_screen_text),
             fontSize = 28.sp,
             fontWeight = FontWeight.Bold,
-            color = Color.Blue
+            color = Color(0xFF0066B3)
         )
         Spacer(modifier = Modifier.height(10.dp))
         OutlinedTextField(
@@ -100,14 +97,19 @@ fun LoginScreen(innerPadding: PaddingValues = PaddingValues()){
                 auth.signInWithEmailAndPassword(stateEmail, statePassword)
                     .addOnCompleteListener (activity) {
                         task ->
-                        if (task.isSuccessful){
-                            stateMessage = "Inicio de session correcto"
-                        }
-                        else {
-                            stateMessage = "Fallo el inicio de sesion"
+                        stateMessage = if (task.isSuccessful){
+                            navController.navigate("logSuccess")
+                            ""
+                        } else {
+                            "Fallo el inicio de sesion"
                         }
                     }
+
             },
+            colors = ButtonDefaults.buttonColors(
+                containerColor = Color(0xFFC9252B),
+                contentColor = Color.White
+            )
         ){
             Text(stringResource(R.string.login_screen_login_button) )
         }
@@ -115,10 +117,10 @@ fun LoginScreen(innerPadding: PaddingValues = PaddingValues()){
             text = stateMessage
         )
         Button(
-            onClick = {},
+            onClick = {navController.navigate("register")},
             colors =ButtonDefaults.buttonColors(
-                containerColor = Color.White,
-                contentColor = Color.Blue
+                containerColor = Color(0xFFEAB1A7),
+                contentColor = Color.White
             )
         ){
             Text(stringResource(R.string.login_screen_register_button))
