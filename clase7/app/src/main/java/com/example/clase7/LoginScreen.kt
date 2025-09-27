@@ -33,7 +33,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.material3.CheckboxDefaults.colors
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.navigation.NavController
@@ -42,6 +42,8 @@ import com.google.firebase.auth.auth
 
 @Composable
 fun LoginScreen(navController: NavController){
+
+    val context = LocalContext.current
 
     val auth = Firebase.auth
 
@@ -65,7 +67,7 @@ fun LoginScreen(navController: NavController){
 
         Image(
             imageVector = Icons.Filled.Person,
-            contentDescription = "User icon",
+            contentDescription = stringResource(R.string.content_description_icon_person),
             modifier = Modifier.size(150.dp)
         )
         Text(
@@ -80,7 +82,7 @@ fun LoginScreen(navController: NavController){
             leadingIcon = {
                 Icon(
                     imageVector = Icons.Filled.Email,
-                    contentDescription = "email icon"
+                    contentDescription = stringResource(R.string.content_description_icon_email)
                 )
             },
             onValueChange = {stateEmail = it},
@@ -100,7 +102,7 @@ fun LoginScreen(navController: NavController){
             leadingIcon = {
                 Icon(
                     imageVector = Icons.Filled.Lock,
-                    contentDescription = "password icon"
+                    contentDescription = stringResource(R.string.content_description_icon_password)
                 )
             },
             onValueChange = {statePassword = it},
@@ -122,8 +124,8 @@ fun LoginScreen(navController: NavController){
         Spacer(modifier = Modifier.height(10.dp))
         Button(
             onClick = {
-                val emailValidation = validateEmail(stateEmail)
-                val passwordValidation = validatePassword(statePassword)
+                val emailValidation = validateEmail(stateEmail, context)
+                val passwordValidation = validatePassword(statePassword, context)
 
                 emailMessage = emailValidation.second
                 passwordMessage = passwordValidation.second
@@ -133,10 +135,10 @@ fun LoginScreen(navController: NavController){
                         .addOnCompleteListener (activity) {
                                 task ->
                             stateMessage = if (task.isSuccessful){
-                                navController.navigate("logSuccess")
-                                ""
+                                navController.navigate(context.getString(R.string.screen3))
+                                context.getString(R.string.placeholder_text)
                             } else {
-                                "Fallo el inicio de sesion"
+                                context.getString(R.string.login_screen_fail)
                             }
                         }
                 }else {
@@ -157,7 +159,7 @@ fun LoginScreen(navController: NavController){
             text = stateMessage
         )
         Button(
-            onClick = {navController.navigate("register")},
+            onClick = {navController.navigate(context.getString(R.string.screen2))},
             colors =ButtonDefaults.buttonColors(
                 containerColor = Color(0xFFEAB1A7),
                 contentColor = Color.White

@@ -6,10 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.automirrored.filled.ExitToApp
-import androidx.compose.material.icons.automirrored.filled.List
-import androidx.compose.material.icons.filled.ExitToApp
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -26,20 +23,18 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Button
-import androidx.compose.ui.unit.dp
-
-
+import androidx.compose.ui.platform.LocalContext
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SuccessScreen(navController: NavController){
+    val context = LocalContext.current
+
     Scaffold (
         topBar = {
             TopAppBar(
@@ -48,7 +43,7 @@ fun SuccessScreen(navController: NavController){
                     IconButton(onClick = {navController.popBackStack()}){
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ExitToApp,
-                            contentDescription= "icon register"
+                            contentDescription= stringResource(R.string.content_description_icon_exit)
                         )
                     }
                 }
@@ -82,9 +77,9 @@ fun SuccessScreen(navController: NavController){
                 color = Color(0xFF0066B3)
             )
             Button(onClick={
-                navController.navigate("users")
+                navController.navigate(context.getString(R.string.screen4))
             }, modifier = Modifier.padding(10.dp)){
-                Text("Ir a usuarios")
+                Text(stringResource(R.string.login_screen_to_users))
             }
         }
     }

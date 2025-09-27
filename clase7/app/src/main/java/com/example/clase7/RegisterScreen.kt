@@ -32,6 +32,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -46,6 +47,7 @@ import com.google.firebase.auth.auth
 //@Preview
 @Composable
 fun RegisterScreen(navController: NavController){
+    val context = LocalContext.current
     val auth = Firebase.auth
 
     var stateEmail by remember {mutableStateOf("")}
@@ -62,7 +64,7 @@ fun RegisterScreen(navController: NavController){
                     IconButton(onClick = {navController.popBackStack()}){
                          Icon(
                              imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                             contentDescription= "icon register"
+                             contentDescription= stringResource(R.string.content_description_icon_exit)
                          )
                     }
                 }
@@ -79,7 +81,7 @@ fun RegisterScreen(navController: NavController){
         ){
             Image(
                 imageVector = Icons.Default.Person,
-                contentDescription = "icon login",
+                contentDescription = stringResource(R.string.content_description_icon_person),
                 modifier = Modifier.size(200.dp)
             )
             Text(
@@ -96,7 +98,7 @@ fun RegisterScreen(navController: NavController){
                 leadingIcon = {
                     Icon(
                         imageVector = Icons.Filled.Email,
-                        contentDescription = "email icon"
+                        contentDescription = stringResource(R.string.content_description_icon_email)
                     )
                 },
                 onValueChange = {stateEmail = it},
@@ -108,7 +110,7 @@ fun RegisterScreen(navController: NavController){
                 leadingIcon = {
                     Icon(
                         imageVector = Icons.Filled.Lock,
-                        contentDescription = "password icon"
+                        contentDescription = stringResource(R.string.content_description_icon_password)
                     )
                 },
                 onValueChange = {statePassword = it},
@@ -120,7 +122,7 @@ fun RegisterScreen(navController: NavController){
                 leadingIcon = {
                     Icon(
                         imageVector = Icons.Filled.Lock,
-                        contentDescription = "confirm password icon"
+                        contentDescription = stringResource(R.string.content_description_icon_confirm_password)
                     )
                 },
                 onValueChange = {stateConfirmPassword = it},
@@ -132,7 +134,7 @@ fun RegisterScreen(navController: NavController){
                         auth.createUserWithEmailAndPassword(stateEmail, statePassword)
                             .addOnCompleteListener(activity) { task ->
                                 if (task.isSuccessful) {
-                                    Toast.makeText(activity, "Registro Exitoso", Toast.LENGTH_SHORT)
+                                    Toast.makeText(activity, context.getString(R.string.register_screen_success), Toast.LENGTH_SHORT)
                                         .show()
                                 } else {
                                     Toast.makeText(
@@ -143,7 +145,7 @@ fun RegisterScreen(navController: NavController){
                                 }
                             }
                     }else{
-                        Toast.makeText(activity,"Las contraseñas no coinciden", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(activity, context.getString(R.string.register_screen_password_error), Toast.LENGTH_SHORT).show()
                     }
                 },
                 colors = ButtonDefaults.buttonColors(
