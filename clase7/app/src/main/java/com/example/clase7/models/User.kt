@@ -4,4 +4,5 @@ data class User(
     val id: String = "",
     val email: String = "",
     val roles: String = "",
+    val canRegister: Boolean = false
 )
